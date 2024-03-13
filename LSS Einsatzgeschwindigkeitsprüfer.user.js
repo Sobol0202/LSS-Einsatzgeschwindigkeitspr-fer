@@ -33,6 +33,20 @@
         console.log("Durchschnittliche Zeit zwischen Einsätzen (in Sekunden):", averageInSeconds);
     }
 
+    let lastMissionId = getLastMissionId();
+
+    function getLastMissionId() {
+        const missionList = document.getElementById('mission_list');
+        if (missionList) {
+            const missions = missionList.querySelectorAll('[search_attribute]');
+            if (missions.length > 0) {
+                const latestMission = missions[0];
+                return latestMission.getAttribute('mission_id');
+            }
+        }
+        return null;
+    }
+
     let lastMissionTime = Date.now();
 
     // Erstellen eines Mutation Observers
@@ -42,10 +56,12 @@
             const newNodes = mutation.addedNodes;
             for (const newNode of newNodes) {
                 if (newNode.nodeType === Node.ELEMENT_NODE && newNode.getAttribute('search_attribute')) {
+                    const missionId = newNode.getAttribute('mission_id');
                     const missionTime = Date.now();
                     const timeDifference = (missionTime - lastMissionTime) / 1000; // Zeitdifferenz in Sekunden
                     addTimeToLast100(timeDifference);
                     lastMissionTime = missionTime;
+                    lastMissionId = missionId;
                     calculateAverageTime(); // Berechnet und gibt den Durchschnitt in der Konsole aus
                     break; // Beende die Schleife, sobald ein neuer Einsatz gefunden wurde
                 }
