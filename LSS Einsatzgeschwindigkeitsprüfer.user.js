@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LSS Einsatzgeschwindigkeitsprüfer
 // @namespace    www.leitstellenspiel.de
-// @version      1.2
+// @version      1.3
 // @description  Berechnet den Durchschnitt der Zeit zwischen Einsätzen.
 // @author       MissSobol
 // @match        https://www.leitstellenspiel.de/
@@ -63,8 +63,8 @@
                         const missionTime = Date.now();
                         const timeDifference = (missionTime - lastMissionTime) / 1000; // Zeitdifferenz in Sekunden
                         addTimeToLast100(timeDifference);
-                        console.log("Neuer Einsatz:", missionName);
-                        console.log("Zeit seit letztem Einsatz (in Sekunden):", timeDifference);
+                        //console.log("Neuer Einsatz:", missionName);
+                        //console.log("Zeit seit letztem Einsatz (in Sekunden):", timeDifference);
                         lastMissionTime = missionTime;
                         lastMissionId = missionId;
                         calculateAverageTime(); // Berechnet und gibt den Durchschnitt in der Konsole aus
